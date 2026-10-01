@@ -29,6 +29,7 @@ BOT_COMMANDS = (
     ("help", "Show help"),
     ("about", "Show bot information"),
     ("ping", "Check bot status"),
+    ("gold", "Analyze XAUUSD gold"),
 )
 
 MENU_HELP = "Help"
@@ -139,6 +140,13 @@ async def ping(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     del context
     await message.reply_text("pong")
+
+async def gold(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    message = update.effective_message
+    if message is None:
+        return
+
+    await message.reply_text("Gold analysis is ready.")
 
 
 async def menu_button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -261,6 +269,7 @@ def register_handlers(application: Application) -> None:
     application.add_handler(CommandHandler("help", help_command))
     application.add_handler(CommandHandler("about", about))
     application.add_handler(CommandHandler("ping", ping))
+    application.add_handler(CommandHandler("gold", gold))
     application.add_handler(
         CallbackQueryHandler(
             dynamic_command_button,
